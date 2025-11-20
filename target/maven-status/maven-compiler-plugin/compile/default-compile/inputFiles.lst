@@ -1,0 +1,13 @@
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celune/persistencia/CelularJpaController.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celune/persistencia/ClienteJpaController.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celune/persistencia/ControladoraPersistencia.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celune/persistencia/exceptions/IllegalOrphanException.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celune/persistencia/exceptions/NonexistentEntityException.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celune/persistencia/exceptions/PreexistingEntityException.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celunet/igu/Menu.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celunet/igu/PedirTurnos.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celunet/igu/VerDatos.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celunet/logica/Celular.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celunet/logica/Cliente.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/celunet/logica/Controladora.java
+/home/raidenov/Descargas/AppJaa/Celunet/src/main/java/com/mycompany/celunet/Celunet.java
