@@ -6,6 +6,7 @@ package celune.persistencia;
 
 import celunet.logica.Celular;
 import celunet.logica.Cliente;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,10 @@ public class ControladoraPersistencia {
         clientJpa.create(client);
         
         celuJpa.create(celu);
+    }
+
+    public List <Celular> traerCelus() {
+        return celuJpa.findCelularEntities();
     }
     
 }

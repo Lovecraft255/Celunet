@@ -18,7 +18,7 @@ public class CelularJpaController implements Serializable {
     }
 
     public CelularJpaController() {
-        emf = Persistence.createEntityManagerFactory("JPACELUNET");
+        emf = Persistence.createEntityManagerFactory("CelunetJPA");
     }
 
     public EntityManager getEntityManager() {

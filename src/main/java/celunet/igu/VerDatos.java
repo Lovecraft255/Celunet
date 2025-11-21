@@ -4,7 +4,11 @@
  */
 package celunet.igu;
 
+
+import celunet.logica.Celular;
 import celunet.logica.Controladora;
+import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author raidenov
  */
 public class VerDatos extends javax.swing.JFrame {
-    Controladora control;
+    Controladora control = null;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VerDatos.class.getName());
 
@@ -36,7 +40,7 @@ public class VerDatos extends javax.swing.JFrame {
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaCelu = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -53,8 +57,8 @@ public class VerDatos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Turnos");
 
-        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCelu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaCelu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -65,7 +69,7 @@ public class VerDatos extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaCelu);
 
         jButton1.setText("Editar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -128,12 +132,14 @@ public class VerDatos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaCelu;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
        DefaultTableModel tabla = new DefaultTableModel(){
+           @Override
            public boolean isCellEditable(int row, int column){
+               
                return false;
            }
        };
@@ -141,5 +147,15 @@ public class VerDatos extends javax.swing.JFrame {
        String titulos[] = {"numero", "modelo", "marca", "nombre"};
        tabla.setColumnIdentifiers(titulos);
        
+       List <Celular> listaCelus = control.traerCelus();
+       
+       if(listaCelus != null){
+           for (Celular celu: listaCelus){
+               Object[] objeto = {celu.getId(), celu.getModelo(), celu.getMarca(), celu.getCliente_id()};
+               System.out.println(celu.getId());
+               tabla.addRow(objeto);
+           }
+       }
+       tablaCelu.setModel(tabla);
     }
 }

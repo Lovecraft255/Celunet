@@ -23,7 +23,7 @@ public class ClienteJpaController implements Serializable {
 
     public ClienteJpaController() {
         // Debe coincidir con el nombre definido en persistence.xml
-        emf = Persistence.createEntityManagerFactory("JPACELUNET");
+        emf = Persistence.createEntityManagerFactory("CelunetJPA");
     }
 
     public EntityManager getEntityManager() {

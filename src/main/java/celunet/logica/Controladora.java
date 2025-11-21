@@ -5,6 +5,7 @@
 package celunet.logica;
 
 import celune.persistencia.ControladoraPersistencia;
+import java.util.List;
 
 /**
  *
@@ -27,6 +28,12 @@ public class Controladora {
         celu.setProblema(problema);
       
         controlP.guardar(client, celu);
+    }
+
+    public List <Celular> traerCelus() {
+       
+       return controlP.traerCelus(); 
+        
     }
     
 }
