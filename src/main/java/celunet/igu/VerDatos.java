@@ -8,6 +8,8 @@ package celunet.igu;
 import celunet.logica.Celular;
 import celunet.logica.Controladora;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -79,6 +81,11 @@ public class VerDatos extends javax.swing.JFrame {
         });
 
         jButton2.setText("Borrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,7 +131,34 @@ public class VerDatos extends javax.swing.JFrame {
         cargarTabla();
     }//GEN-LAST:event_formWindowOpened
 
-    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(tablaCelu.getRowCount() > 0){
+            if(tablaCelu.getSelectedRow() != -1){
+                int numCliente = Integer.parseInt(String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 0)));
+                control.borrarCelu(numCliente);
+                mostrarMensaje("Celular eliminado", "Info", "Borrado de celu");
+                cargarTabla();
+                
+            }else{
+                mostrarMensaje("No se selecciono ningun celu", "Error", "Error al querer eliminar celus");
+            }
+        } else{
+            mostrarMensaje("No hay ningun celu para eliminar en la tabla", "Error", "Error al querer eliminar celus");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+          optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }else if(tipo.equals("Error") ){
+              optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+      
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

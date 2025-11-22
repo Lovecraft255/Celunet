@@ -35,5 +35,9 @@ public class Controladora {
        return controlP.traerCelus(); 
         
     }
-    
+
+    public void borrarCelu(int numCliente) {
+        controlP.borrarCelu(numCliente);
+    }
+
 }
