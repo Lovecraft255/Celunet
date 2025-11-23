@@ -31,7 +31,6 @@ public class ClienteJpaController implements Serializable {
     }
 
     // === MÉTODOS CRUD ===
-
     // CREATE
     public void create(Cliente cliente) {
         EntityManager em = getEntityManager();
@@ -42,7 +41,9 @@ public class ClienteJpaController implements Serializable {
             em.persist(cliente);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             System.out.println("Error al crear cliente: " + e.getMessage());
         } finally {
             em.close();
@@ -80,7 +81,9 @@ public class ClienteJpaController implements Serializable {
             em.merge(cliente);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             System.out.println("Error al actualizar cliente: " + e.getMessage());
         } finally {
             em.close();
@@ -94,16 +97,42 @@ public class ClienteJpaController implements Serializable {
 
         try {
             tx.begin();
+
             Cliente cliente = em.find(Cliente.class, id);
+
             if (cliente != null) {
+                // Elimina los celulares primero (por relación 1:N)
+                cliente.getCelulares().clear();
                 em.remove(cliente);
             }
+
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             System.out.println("Error al eliminar cliente: " + e.getMessage());
         } finally {
             em.close();
         }
     }
+
+    public Cliente findClienteByNumero(String numero) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.numero = :num", Cliente.class);
+            query.setParameter("num", numero);
+
+            List<Cliente> resultados = query.getResultList();
+
+            if (resultados.isEmpty()) {
+                return null;
+            }
+            return resultados.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
 }

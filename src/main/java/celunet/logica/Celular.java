@@ -9,33 +9,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author raidenov
  */
-@Entity 
-public class Celular implements Serializable{
-    
+@Entity
+public class Celular implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    
-    private int cliente_id;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
     public String modelo;
-    
+
     public String marca;
-    
+
     public String problema;
 
     public Celular() {
     }
-    
-    public Celular(int id, int cliente_id, String modelo, String marca, String problema) {
+
+    public Celular(int id, Cliente cliente, String modelo, String marca, String problema) {
         this.id = id;
-        this.cliente_id = cliente_id;
+        this.cliente = cliente;
         this.modelo = modelo;
         this.marca = marca;
         this.problema = problema;
@@ -49,12 +52,12 @@ public class Celular implements Serializable{
         this.id = id;
     }
 
-    public int getCliente_id() {
-        return cliente_id;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCliente_id(int cliente_id) {
-        this.cliente_id = cliente_id;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getModelo() {
@@ -80,8 +83,5 @@ public class Celular implements Serializable{
     public void setProblema(String problema) {
         this.problema = problema;
     }
-    
-    
-            
-            
+
 }

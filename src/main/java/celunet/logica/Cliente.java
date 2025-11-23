@@ -4,11 +4,14 @@
  */
 package celunet.logica;
 
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -16,18 +19,21 @@ import javax.persistence.Id;
  */
 @Entity
 public class Cliente {
-   
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected int id;
-    
+
     @Basic
     protected String nombre;
     protected String numero;
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Celular> celulares;
+
     public Cliente() {
     }
-    
+
     public Cliente(int id, String nombre, String numero) {
         this.id = id;
         this.nombre = nombre;
@@ -57,6 +63,13 @@ public class Cliente {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-    
-    
+
+    public List<Celular> getCelulares() {
+        return celulares;
+    }
+
+    public void setCelulares(List<Celular> celulares) {
+        this.celulares = celulares;
+    }
+
 }

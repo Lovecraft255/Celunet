@@ -4,6 +4,7 @@
 /home/raidenov/NetBeansProjects/Celunet/src/main/java/celune/persistencia/exceptions/IllegalOrphanException.java
 /home/raidenov/NetBeansProjects/Celunet/src/main/java/celune/persistencia/exceptions/NonexistentEntityException.java
 /home/raidenov/NetBeansProjects/Celunet/src/main/java/celune/persistencia/exceptions/PreexistingEntityException.java
+/home/raidenov/NetBeansProjects/Celunet/src/main/java/celunet/igu/EditarTurnos.java
 /home/raidenov/NetBeansProjects/Celunet/src/main/java/celunet/igu/Menu.java
 /home/raidenov/NetBeansProjects/Celunet/src/main/java/celunet/igu/PedirTurnos.java
 /home/raidenov/NetBeansProjects/Celunet/src/main/java/celunet/igu/VerDatos.java

@@ -17,10 +17,20 @@ public class ControladoraPersistencia {
     ClienteJpaController clientJpa = new ClienteJpaController();
     CelularJpaController celuJpa = new CelularJpaController();
 
-    public void guardar(Cliente client, Celular celu) {
+    public void crearClienteYCelu(Cliente client, Celular celu) {
         clientJpa.create(client);
-
+        celu.setCliente(client);
         celuJpa.create(celu);
+    }
+
+    public void agregarCelu(Cliente cliente, Celular celu) {
+        celu.setCliente(cliente);
+        celuJpa.create(celu);
+    }
+
+    public void agregarCelu(Celular celu) {
+
+        celuJpa.edit(celu);
     }
 
     public List<Celular> traerCelus() {
@@ -35,4 +45,14 @@ public class ControladoraPersistencia {
         }
 
     }
+
+    public Celular traerCelu(int numCliente) {
+        return celuJpa.findCelular(numCliente);
+    }
+
+    public Cliente buscarClientePorNumero(String num) {
+        return clientJpa.findClienteByNumero(num);
+    }
+
+    
 }

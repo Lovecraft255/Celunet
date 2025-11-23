@@ -26,7 +26,6 @@ public class CelularJpaController implements Serializable {
     }
 
     // === MÉTODOS CRUD ===
-
     // CREATE
     public void create(Celular celular) {
         EntityManager em = getEntityManager();
@@ -37,7 +36,9 @@ public class CelularJpaController implements Serializable {
             em.persist(celular);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             System.out.println("Error al crear celular: " + e.getMessage());
         } finally {
             em.close();
@@ -75,7 +76,9 @@ public class CelularJpaController implements Serializable {
             em.merge(celular);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             System.out.println("Error al actualizar celular: " + e.getMessage());
         } finally {
             em.close();
@@ -95,10 +98,29 @@ public class CelularJpaController implements Serializable {
             }
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             System.out.println("Error al eliminar celular: " + e.getMessage());
         } finally {
             em.close();
         }
     }
+
+    public List<Celular> findByCliente(int clienteId) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Celular> q = em.createQuery(
+                    "SELECT c FROM Celular c WHERE c.cliente.id = :id",
+                    Celular.class
+            );
+            q.setParameter("id", clienteId);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
+
+

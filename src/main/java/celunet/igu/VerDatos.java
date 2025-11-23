@@ -4,7 +4,6 @@
  */
 package celunet.igu;
 
-
 import celunet.logica.Celular;
 import celunet.logica.Controladora;
 import java.util.List;
@@ -18,8 +17,9 @@ import javax.swing.table.DefaultTableModel;
  * @author raidenov
  */
 public class VerDatos extends javax.swing.JFrame {
+
     Controladora control = null;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VerDatos.class.getName());
 
     /**
@@ -124,7 +124,19 @@ public class VerDatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if (tablaCelu.getRowCount() > 0) {
+            if (tablaCelu.getSelectedRow() != -1) {
+                int numCliente = Integer.parseInt(String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 0)));
+                EditarTurnos edTurnos = new EditarTurnos(numCliente);
+                edTurnos.setVisible(true);
+                edTurnos.setLocationRelativeTo(null);
+
+            } else {
+                mostrarMensaje("No se selecciono ningun celu", "Error", "Error al querer eliminar celus");
+            }
+        } else {
+            mostrarMensaje("No hay ningun celu para eliminar en la tabla", "Error", "Error al querer eliminar celus");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -132,29 +144,29 @@ public class VerDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(tablaCelu.getRowCount() > 0){
-            if(tablaCelu.getSelectedRow() != -1){
+        if (tablaCelu.getRowCount() > 0) {
+            if (tablaCelu.getSelectedRow() != -1) {
                 int numCliente = Integer.parseInt(String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 0)));
                 control.borrarCelu(numCliente);
                 mostrarMensaje("Celular eliminado", "Info", "Borrado de celu");
                 cargarTabla();
-                
-            }else{
+
+            } else {
                 mostrarMensaje("No se selecciono ningun celu", "Error", "Error al querer eliminar celus");
             }
-        } else{
+        } else {
             mostrarMensaje("No hay ningun celu para eliminar en la tabla", "Error", "Error al querer eliminar celus");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+    public void mostrarMensaje(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
-        if(tipo.equals("Info")){
-          optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        }else if(tipo.equals("Error") ){
-              optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
-      
+
         JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
@@ -170,26 +182,28 @@ public class VerDatos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
-       DefaultTableModel tabla = new DefaultTableModel(){
-           @Override
-           public boolean isCellEditable(int row, int column){
-               
-               return false;
-           }
-       };
-       
-       String titulos[] = {"numero", "modelo", "marca", "nombre"};
-       tabla.setColumnIdentifiers(titulos);
-       
-       List <Celular> listaCelus = control.traerCelus();
-       
-       if(listaCelus != null){
-           for (Celular celu: listaCelus){
-               Object[] objeto = {celu.getId(), celu.getModelo(), celu.getMarca(), celu.getCliente_id()};
-               System.out.println(celu.getId());
-               tabla.addRow(objeto);
-           }
-       }
-       tablaCelu.setModel(tabla);
+        DefaultTableModel tabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+
+                return false;
+            }
+        };
+
+        String titulos[] = {"numero", "modelo", "marca", "Dueño", "Problema"};
+        tabla.setColumnIdentifiers(titulos);
+
+        List<Celular> listaCelus = control.traerCelus();
+
+        if (listaCelus != null) {
+            for (Celular celu : listaCelus) {
+                Object[] objeto = {celu.getId(), celu.getModelo(), celu.getMarca(), celu.getCliente()};
+                System.out.println(celu.getId());
+                tabla.addRow(objeto);
+            }
+        }
+        tablaCelu.setModel(tabla);
     }
+    
+    
 }

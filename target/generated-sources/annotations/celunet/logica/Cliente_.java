@@ -1,14 +1,17 @@
 package celunet.logica;
 
+import celunet.logica.Celular;
 import javax.annotation.processing.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2025-11-22T20:33:03", comments="EclipseLink-2.7.12.v20230209-rNA")
+@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2025-11-23T00:52:27", comments="EclipseLink-2.7.12.v20230209-rNA")
 @StaticMetamodel(Cliente.class)
 public class Cliente_ { 
 
     public static volatile SingularAttribute<Cliente, String> numero;
+    public static volatile ListAttribute<Cliente, Celular> celulares;
     public static volatile SingularAttribute<Cliente, Integer> id;
     public static volatile SingularAttribute<Cliente, String> nombre;
 
