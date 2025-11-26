@@ -49,14 +49,38 @@ public class Controladora {
 
     }
 
-    
-
     public void borrarCelu(int numCliente) {
         controlP.borrarCelu(numCliente);
     }
 
-    public Celular traerCelu(int numCliente) {
+    public Celular traerCelu(String numCliente) {
         return controlP.traerCelu(numCliente);
     }
 
+    public void modificarCelu(Celular celu, String name, String num, String marca, String modelo, String problema) {
+
+        celu.setMarca(marca);
+        celu.setModelo(modelo);
+        celu.setProblema(problema);
+        controlP.modificarCelu(celu);
+        Cliente client = this.buscarCliente(celu.getCliente().getId());
+        client.setNombre(name);
+        client.setNumero(num);
+        this.modficarCliente(client);
+
+    }
+
+    private Cliente buscarCliente(int id) {
+        return controlP.buscarClientePorId(id);
+    }
+
+    private void modficarCliente(Cliente client) {
+        controlP.modficarCliente(client);
+    }
+
+    public Cliente traerClientePorNumero(String numero) {
+        return controlP.buscarClientePorNumero(numero);
+    }
+
 }
+

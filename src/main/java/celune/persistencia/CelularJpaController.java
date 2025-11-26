@@ -107,7 +107,7 @@ public class CelularJpaController implements Serializable {
         }
     }
 
-    public List<Celular> findByCliente(int clienteId) {
+    public Celular findByClienteId(int clienteId) {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<Celular> q = em.createQuery(
@@ -115,12 +115,13 @@ public class CelularJpaController implements Serializable {
                     Celular.class
             );
             q.setParameter("id", clienteId);
-            return q.getResultList();
+
+            List<Celular> resultados = q.getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+
         } finally {
             em.close();
         }
     }
 
 }
-
-

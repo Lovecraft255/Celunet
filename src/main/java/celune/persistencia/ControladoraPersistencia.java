@@ -46,13 +46,39 @@ public class ControladoraPersistencia {
 
     }
 
-    public Celular traerCelu(int numCliente) {
-        return celuJpa.findCelular(numCliente);
+    public Celular traerCelu(String numCliente) {
+        Cliente cli = clientJpa.findClienteByNumero(numCliente);
+        Celular celu = celuJpa.findByClienteId(cli.getId());
+
+        System.out.println("Marca: " + celu.getMarca());
+        System.out.println("Modelo: " + celu.getModelo());
+        System.out.println("Problema: " + celu.getProblema());
+        return celu;
+
+    }
+
+    public void modificarCelu(Celular celu) {
+        try {
+            celuJpa.edit(celu);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Cliente buscarClientePorId(int id) {
+        return clientJpa.findCliente(id);
+    }
+
+    public void modficarCliente(Cliente client) {
+        try {
+            clientJpa.edit(client);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Cliente buscarClientePorNumero(String num) {
         return clientJpa.findClienteByNumero(num);
     }
 
-    
 }

@@ -16,17 +16,16 @@ import javax.swing.JOptionPane;
 public class EditarTurnos extends javax.swing.JFrame {
 
     Controladora control = null;
+    Celular celu;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditarTurnos.class.getName());
 
     /**
      * Creates new form PedirTurnos
      */
-    int numCliente;
-
-    public EditarTurnos(int numCliente) {
+    public EditarTurnos(String numCliente) {
         control = new Controladora();
-        this.numCliente = numCliente;
+        System.out.println("Numero del cliente" + numCliente);
         initComponents();
         cargarDatos(numCliente);
     }
@@ -207,20 +206,21 @@ public class EditarTurnos extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
-        /* String name = txtNombre.getText();
+        String name = txtNombre.getText();
         String num = txtNumTelefono.getText();
         String marca = (String) cmbMarca.getSelectedItem();
         String modelo = txtModelo.getText();
         String problema = txtProblema.getText();
-        
-        
-        control.guardar(name, num, marca, modelo, problema);
-        
-        JOptionPane optionPane = new JOptionPane("Se guardo correctamente");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Guardado exitoso");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);*/
+
+        control.modificarCelu(celu, name, num, marca, modelo, problema);
+
+        mostrarMensaje("Edicionrealizada correctamente", "Info", "Edicion correcta");
+        VerDatos pant = new VerDatos();
+        pant.setVisible(true);
+        pant.setLocationRelativeTo(null);
+
+        this.dispose();
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -253,14 +253,13 @@ public class EditarTurnos extends javax.swing.JFrame {
     private javax.swing.JTextArea txtProblema;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarDatos(int numCliente) {
-        Celular celu = control.traerCelu(numCliente);
+    private void cargarDatos(String numCliente) {
+        this.celu = control.traerCelu(numCliente);
 
         txtModelo.setText(celu.getModelo());
-        txtNombre.setText(String.valueOf(celu.getCliente()));
-        txtNumTelefono.setText(String.valueOf(celu.getId()));
+        txtNombre.setText(String.valueOf(celu.getCliente().getNombre()));
+        txtNumTelefono.setText(String.valueOf(celu.getCliente().getNombre()));
         txtProblema.setText(celu.getProblema());
-
         if (celu.getMarca().equals("Samsung")) {
             cmbMarca.setSelectedIndex(1);
         } else if (celu.getMarca().equals("Apple")) {
@@ -268,5 +267,18 @@ public class EditarTurnos extends javax.swing.JFrame {
         } else if (celu.getMarca().equals("Xiaomi")) {
             cmbMarca.setSelectedIndex(3);
         }
+    }
+
+    public void mostrarMensaje(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
     }
 }

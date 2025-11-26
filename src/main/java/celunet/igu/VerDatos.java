@@ -5,6 +5,7 @@
 package celunet.igu;
 
 import celunet.logica.Celular;
+import celunet.logica.Cliente;
 import celunet.logica.Controladora;
 import java.util.List;
 import javax.swing.JDialog;
@@ -126,19 +127,25 @@ public class VerDatos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (tablaCelu.getRowCount() > 0) {
             if (tablaCelu.getSelectedRow() != -1) {
-                int numCliente = Integer.parseInt(String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 0)));
-                EditarTurnos edTurnos = new EditarTurnos(numCliente);
-                edTurnos.setVisible(true);
-                edTurnos.setLocationRelativeTo(null);
+                String numCliente = String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 0));
 
+                Cliente cliente = control.traerClientePorNumero(numCliente);
+
+                if (cliente != null) {
+                    EditarTurnos edTurnos = new EditarTurnos(numCliente);
+                    edTurnos.setVisible(true);
+                    edTurnos.setLocationRelativeTo(null);
+                    this.dispose();
+
+                } else {
+                    mostrarMensaje("No se selecciono ningun celu", "Error", "Error al querer eliminar celus");
+                }
             } else {
-                mostrarMensaje("No se selecciono ningun celu", "Error", "Error al querer eliminar celus");
+                mostrarMensaje("No hay ningun celu para eliminar en la tabla", "Error", "Error al querer eliminar celus");
             }
-        } else {
-            mostrarMensaje("No hay ningun celu para eliminar en la tabla", "Error", "Error al querer eliminar celus");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
+    }//GEN-LAST:event_jButton1ActionPerformed
+    }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         cargarTabla();
     }//GEN-LAST:event_formWindowOpened
@@ -197,13 +204,12 @@ public class VerDatos extends javax.swing.JFrame {
 
         if (listaCelus != null) {
             for (Celular celu : listaCelus) {
-                Object[] objeto = {celu.getId(), celu.getModelo(), celu.getMarca(), celu.getCliente()};
+                Object[] objeto = {celu.getCliente().getNumero(), celu.getModelo(), celu.getMarca(), celu.getCliente().getNombre(), celu.getProblema()};
                 System.out.println(celu.getId());
                 tabla.addRow(objeto);
             }
         }
         tablaCelu.setModel(tabla);
     }
-    
-    
+
 }

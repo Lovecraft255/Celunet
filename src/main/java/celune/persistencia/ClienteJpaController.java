@@ -127,9 +127,11 @@ public class ClienteJpaController implements Serializable {
             List<Cliente> resultados = query.getResultList();
 
             if (resultados.isEmpty()) {
-                return null;
+                return null; // Cliente no encontrado
             }
-            return resultados.get(0);
+
+            return resultados.get(0); // Devuelve el Cliente completo
+
         } finally {
             em.close();
         }
