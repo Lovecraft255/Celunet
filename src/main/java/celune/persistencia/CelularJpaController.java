@@ -124,4 +124,21 @@ public class CelularJpaController implements Serializable {
         }
     }
 
+    public Celular findByModelo(String modelo) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Celular> q = em.createQuery(
+                    "SELECT c FROM Celular c WHERE c.modelo = :modelo",
+                    Celular.class
+            );
+            q.setParameter("modelo", modelo);
+
+            List<Celular> resultados = q.getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+
+        } finally {
+            em.close();
+        }
+    }
+
 }

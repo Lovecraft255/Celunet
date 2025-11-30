@@ -153,8 +153,9 @@ public class VerDatos extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (tablaCelu.getRowCount() > 0) {
             if (tablaCelu.getSelectedRow() != -1) {
-                int numCliente = Integer.parseInt(String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 0)));
-                control.borrarCelu(numCliente);
+                String celModelo = String.valueOf(tablaCelu.getValueAt(tablaCelu.getSelectedRow(), 1));
+                Celular cel = control.traerCeluPorModelo(celModelo);
+                control.borrarCelu(cel.getId());
                 mostrarMensaje("Celular eliminado", "Info", "Borrado de celu");
                 cargarTabla();
 

@@ -258,7 +258,7 @@ public class EditarTurnos extends javax.swing.JFrame {
 
         txtModelo.setText(celu.getModelo());
         txtNombre.setText(String.valueOf(celu.getCliente().getNombre()));
-        txtNumTelefono.setText(String.valueOf(celu.getCliente().getNombre()));
+        txtNumTelefono.setText(String.valueOf(celu.getCliente().getNumero()));
         txtProblema.setText(celu.getProblema());
         if (celu.getMarca().equals("Samsung")) {
             cmbMarca.setSelectedIndex(1);

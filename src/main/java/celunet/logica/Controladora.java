@@ -82,5 +82,11 @@ public class Controladora {
         return controlP.buscarClientePorNumero(numero);
     }
 
+    public Celular traerCeluPorModelo(String celModelo) {
+        return controlP.traerCeluPorModelo(celModelo);
+    }
+
+
+
 }
 

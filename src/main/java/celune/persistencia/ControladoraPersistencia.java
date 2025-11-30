@@ -81,4 +81,8 @@ public class ControladoraPersistencia {
         return clientJpa.findClienteByNumero(num);
     }
 
+    public Celular traerCeluPorModelo(String celModelo) {
+        return celuJpa.findByModelo(celModelo);
+    }
+
 }
